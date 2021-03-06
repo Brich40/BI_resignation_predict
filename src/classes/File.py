@@ -27,3 +27,9 @@ class File:
         print("[Warning] Colon not found.")
         return None
 
+    def get_value(self, row, colon):
+        colon_index = self.get_colon_index(colon)
+        return self.data[row][colon_index]
+
+    def count_line(self):
+        return len(self.data[1:])
