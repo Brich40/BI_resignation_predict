@@ -9,9 +9,11 @@ Desc: main file
 from src.classes.File import File
 from src.classes.Stats import Stats
 from src.classes.Charts import Charts
+from src.classes.AI import AI
 
 # Global vars
 CSV_FILE_PATH = "../donnees/data_mining_DB_clients_tbl_bis.csv"
+CSV_TRAINING_FILE_PATH = "../donnees/training_data.csv"
 
 
 def calculate_resignation(file):
@@ -76,6 +78,19 @@ def calculate_resignation_by_year(file):
     Charts.draw_line_chart(args)
 
 
+def tain_ai():
+    """
+    :return:
+    """
+    # Get colons from file
+    file = File(CSV_FILE_PATH)
+    file.load_data_from_csv()
+    colones = file.data[0]
+
+    AI_ = AI(CSV_TRAINING_FILE_PATH, colones)
+    AI_.train('CDMOTDEM')
+
+
 def main():
     """
     Main function
@@ -84,8 +99,13 @@ def main():
     file = File(CSV_FILE_PATH)
     file.load_data_from_csv()
 
-    # calculate_resignation(file)
+    calculate_resignation(file)
     calculate_resignation_by_year(file)
+    # file.adapt_to_training()
+    # file.save_file(CSV_TRAINING_FILE_PATH)
+    # tain_ai()
+
+
     return 0
 
 
